@@ -15,36 +15,31 @@
     --font-inter: 'Inter', sans-serif;
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 body {
     background-color: var(--bg-dark);
     color: var(--text-primary);
     font-family: var(--font-inter);
     min-height: 100vh;
-    overflow-x: hidden;
     position: relative;
     background-image: 
         radial-gradient(circle at 10% 20%, rgba(16, 185, 129, 0.05) 0%, transparent 40%),
         radial-gradient(circle at 90% 80%, rgba(59, 130, 246, 0.05) 0%, transparent 40%);
 }
 
-/* Header Styling */
 header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1.5rem 3rem;
+    padding: 0.8rem 2rem;
     border-bottom: 1px solid var(--card-border);
-    background: rgba(6, 11, 19, 0.8);
+    background: rgba(6, 11, 19, 0.85);
     backdrop-filter: blur(12px);
-    position: sticky;
+    position: fixed;
     top: 0;
+    left: 0;
+    right: 0;
     z-index: 100;
+    box-sizing: border-box;
 }
 
 .logo-container {
@@ -64,10 +59,24 @@ header {
 
 .logo-text {
     font-family: var(--font-outfit);
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     font-weight: 600;
     color: var(--text-primary);
     letter-spacing: 0.5px;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+}
+
+@media (max-width: 1200px) {
+    .logo-text {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 1000px) {
+    .logo-text {
+        display: none;
+    }
 }
 
 /* Nav Tabs */
@@ -100,13 +109,17 @@ header {
 .tab-btn.active {
     background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
     color: #ffffff;
-    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.25);
+    box-shadow: none !important;
 }
 
-/* Main Content Wrapper */
+.tab-btn:focus, .btn-primary:focus, .slide-menu-btn:focus, .slide-nav-btn:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
 main {
     max-width: 1400px;
-    margin: 2rem auto;
+    margin: 6rem auto 2rem auto;
     padding: 0 2rem;
 }
 
@@ -148,6 +161,7 @@ main {
     flex-direction: column;
     gap: 0.5rem;
     backdrop-filter: blur(8px);
+    height: 100%;
 }
 
 .slide-menu h3 {
@@ -201,6 +215,7 @@ main {
     justify-content: space-between;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(8px);
+    height: 100%;
 }
 
 .slide-body {
@@ -379,12 +394,12 @@ main {
     border-radius: 8px;
     transition: all 0.3s ease;
     text-align: center;
-    box-shadow: 0 4px 15px var(--primary-glow);
+    box-shadow: none !important;
 }
 
 .btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.35);
+    box-shadow: none !important;
 }
 
 .btn-primary:active {
@@ -545,6 +560,35 @@ tr:hover td {
     }
 }
 
+/* Floating Download Button */
+.floating-download-btn {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 1000;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: #ffffff !important;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 30px;
+    font-family: var(--font-outfit);
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none !important;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+}
+
+.floating-download-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+    color: #ffffff !important;
+}
+
 /* Print CSS Styles for Slide Presentation PDF Export */
 @media print {
     body {
@@ -557,7 +601,7 @@ tr:hover td {
     }
     
     /* Hide non-presentation UI */
-    header, .slide-menu, .slide-footer, .nav-tabs, #pane-simulation, .logo-container {
+    header, .slide-menu, .slide-footer, .nav-tabs, #pane-simulation, .logo-container, .floating-download-btn {
         display: none !important;
     }
     

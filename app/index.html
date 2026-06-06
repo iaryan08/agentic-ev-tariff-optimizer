@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EV Tariff Optimizer - Agentic AI Dynamic Pricing</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=1.5">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Chart.js for interactive analytics -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -14,19 +14,16 @@
     <!-- Header Navigation -->
     <header>
         <div class="logo-container">
-            <span class="logo-icon"><i class="fa-solid fa-bolt"></i> OP'26</span>
-            <span class="logo-text">Agentic Tariff Optimizer</span>
+            <span class="logo-icon"><i class="fa-solid fa-bolt"></i></span>
+            <span class="logo-text">Agentic AI-Based EV Dynamic Tariff Optimization</span>
         </div>
         <div class="nav-tabs">
-            <button class="tab-btn active" id="tab-slides-btn" onclick="switchTab('slides')">
-                <i class="fa-solid fa-presentation-screen"></i> Presentation Deck
+            <button class="tab-btn" id="tab-slides-btn" onclick="switchTab('slides')">
+                <i class="fa-solid fa-presentation-screen"></i> Analytics Insights
             </button>
-            <button class="tab-btn" id="tab-sim-btn" onclick="switchTab('simulation')">
+            <button class="tab-btn active" id="tab-sim-btn" onclick="switchTab('simulation')">
                 <i class="fa-solid fa-chart-line"></i> Simulation Console
             </button>
-            <a href="OP26_Analytics_Presentation.pptx" download class="tab-btn" style="text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; justify-content: center;">
-                <i class="fa-solid fa-download"></i> Download PPTX
-            </a>
         </div>
     </header>
 
@@ -34,7 +31,7 @@
     <main>
         
         <!-- Tab 1: Presentation Slides -->
-        <section id="pane-slides" class="content-pane active">
+        <section id="pane-slides" class="content-pane">
             <div class="slide-deck-container">
                 
                 <!-- Sidebar Navigation Menu for Slides -->
@@ -44,22 +41,25 @@
                         <i class="fa-solid fa-house"></i> 1. Cover Slide
                     </button>
                     <button class="slide-menu-btn" onclick="goToSlide(2)">
-                        <i class="fa-solid fa-gears"></i> 2. Preprocessing
+                        <i class="fa-solid fa-circle-info"></i> 2. Project Overview
                     </button>
                     <button class="slide-menu-btn" onclick="goToSlide(3)">
-                        <i class="fa-solid fa-chart-simple"></i> 3. Exploratory Data
+                        <i class="fa-solid fa-gears"></i> 3. Preprocessing
                     </button>
                     <button class="slide-menu-btn" onclick="goToSlide(4)">
-                        <i class="fa-solid fa-brain"></i> 4. Demand Forecasting
+                        <i class="fa-solid fa-chart-simple"></i> 4. Exploratory Data
                     </button>
                     <button class="slide-menu-btn" onclick="goToSlide(5)">
-                        <i class="fa-solid fa-tag"></i> 5. Dynamic Pricing
+                        <i class="fa-solid fa-brain"></i> 5. Demand Forecasting
                     </button>
                     <button class="slide-menu-btn" onclick="goToSlide(6)">
-                        <i class="fa-solid fa-arrows-spin"></i> 6. Monitoring Agent
+                        <i class="fa-solid fa-tag"></i> 6. Dynamic Pricing
                     </button>
                     <button class="slide-menu-btn" onclick="goToSlide(7)">
-                        <i class="fa-solid fa-briefcase"></i> 7. Business Impact
+                        <i class="fa-solid fa-arrows-spin"></i> 7. Monitoring Agent
+                    </button>
+                    <button class="slide-menu-btn" onclick="goToSlide(8)">
+                        <i class="fa-solid fa-briefcase"></i> 8. Business Impact
                     </button>
                 </nav>
 
@@ -68,29 +68,36 @@
                     
                     <!-- Slide 1: Cover -->
                     <div class="slide-body active" id="slide-1">
-                        <h1>Agentic AI-Based Dynamic Tariff Optimization</h1>
+                        <h1 style="margin-top: 1.5rem;">Agentic AI-Based Dynamic Tariff Optimization</h1>
                         <h2>For EV Charging Networks Using Large-Scale Charging Data</h2>
-                        <p>EV Dynamic Tariff Optimization Submission by Society of Business.</p>
-                        <p style="margin-top: 1rem; font-weight: 600; color: var(--primary-color);">Submitted by: Aryan Mehra (Enrollment: 23115025)</p>
+                        <p style="margin-top: 2rem;">EV Dynamic Tariff Optimization Submission by Society of Business.</p>
+                        <p style="margin-top: 4rem; font-weight: 600; color: var(--primary-color);">Submitted by: Aryan Mehra (Enrollment: 23115025)</p>
+                    </div>
+
+                    <!-- Slide 2: Project Overview -->
+                    <div class="slide-body" id="slide-2">
+                        <h1>Project Overview & Objectives</h1>
+                        <h2>Dynamic Tariff Optimization Problem Setup</h2>
+                        <p>This project utilizes real-world session data to build an Agentic AI dynamic pricing engine.</p>
                         
-                        <div class="slide-bullets" style="margin-top: 3rem;">
+                        <div class="slide-bullets" style="margin-top: 2rem;">
                             <div class="slide-bullet">
                                 <i class="fa-solid fa-circle-check slide-bullet-icon"></i>
-                                <div><strong>Problem Statement:</strong> Flat-rate tariffs cause peak congestion and underutilization in off-peak windows.</div>
+                                <div><strong>Problem Statement:</strong> Flat-rate tariffs cause peak-hour congestion and underutilization in off-peak windows.</div>
                             </div>
                             <div class="slide-bullet">
                                 <i class="fa-solid fa-circle-check slide-bullet-icon"></i>
-                                <div><strong>Objective:</strong> Build a self-improving pricing engine that autonomously predicts demand, optimizes tariffs, and learns from operational outcomes.</div>
+                                <div><strong>Objective:</strong> Build a self-improving pricing engine that autonomously predicts demand, optimizes tariffs, and learns from outcomes to maximize revenue and balance grid load.</div>
                             </div>
                             <div class="slide-bullet">
                                 <i class="fa-solid fa-circle-check slide-bullet-icon"></i>
-                                <div><strong>Datasets:</strong> Caltech ACN-Data (USA) and Shenzhen UrbanEV Dataset (ST-EVCDP).</div>
+                                <div><strong>Datasets:</strong> Caltech ACN-Data (30,000+ sessions) and Shenzhen UrbanEV Dataset (24,798 charging piles).</div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Slide 2: Data Preprocessing -->
-                    <div class="slide-body" id="slide-2">
+                    <!-- Slide 3: Data Preprocessing -->
+                    <div class="slide-body" id="slide-3">
                         <h1>Data Preprocessing & Feature Engineering</h1>
                         <h2>Structuring and Aligning Large-Scale Datasets</h2>
                         <p>We aligned the session-level ACN-Data and the grid-level UrbanEV time-series datasets to a unified analytical base.</p>
@@ -111,8 +118,8 @@
                         </div>
                     </div>
 
-                    <!-- Slide 3: Exploratory Data Analysis -->
-                    <div class="slide-body" id="slide-3">
+                    <!-- Slide 4: Exploratory Data Analysis -->
+                    <div class="slide-body" id="slide-4">
                         <h1>Exploratory Data Analysis (EDA)</h1>
                         <h2>Temporal Charging Behavior & Price Sensitivity</h2>
                         <p>EDA shows highly volatile charging demand that peaks mid-day (ACN workplace) and early evening (UrbanEV public grids).</p>
@@ -133,8 +140,8 @@
                         </div>
                     </div>
 
-                    <!-- Slide 4: Demand Forecasting -->
-                    <div class="slide-body" id="slide-4">
+                    <!-- Slide 5: Demand Forecasting -->
+                    <div class="slide-body" id="slide-5">
                         <h1>Demand Prediction Agent</h1>
                         <h2>Machine Learning-Based Time-Series Forecasting</h2>
                         <p>We train LightGBM regression models to forecast occupancy and volume (expected load) using temporal features and lagged demand.</p>
@@ -155,8 +162,8 @@
                         </div>
                     </div>
 
-                    <!-- Slide 5: Dynamic Pricing Logic -->
-                    <div class="slide-body" id="slide-5">
+                    <!-- Slide 6: Dynamic Pricing Logic -->
+                    <div class="slide-body" id="slide-6">
                         <h1>Tariff Pricing Agent</h1>
                         <h2>Elasticity-Aware Surge & Discount Logic</h2>
                         <p>Translates forecasting agent predictions into dynamic tariffs to shift customer charging schedules.</p>
@@ -177,8 +184,8 @@
                         </div>
                     </div>
 
-                    <!-- Slide 6: Monitoring Agent -->
-                    <div class="slide-body" id="slide-6">
+                    <!-- Slide 7: Monitoring Agent -->
+                    <div class="slide-body" id="slide-7">
                         <h1>Monitoring & Learning Agent</h1>
                         <h2>Closed-Loop Adaptive Feedback Performance</h2>
                         <p>Evaluates pricing decisions against operational outcomes and dynamically adjusts the elasticity coefficient.</p>
@@ -198,8 +205,8 @@
                         </div>
                     </div>
 
-                    <!-- Slide 7: Business Implications -->
-                    <div class="slide-body" id="slide-7">
+                    <!-- Slide 8: Business Implications -->
+                    <div class="slide-body" id="slide-8">
                         <h1>Business & Grid Implications</h1>
                         <h2>Operational and Policy Recommendation Deck</h2>
                         
@@ -221,7 +228,7 @@
 
                     <!-- Slide Control Buttons -->
                     <div class="slide-footer">
-                        <span class="slide-counter" id="slide-counter">Slide 1 of 7</span>
+                        <span class="slide-counter" id="slide-counter">Slide 1 of 8</span>
                         <div class="slide-nav-buttons">
                             <button class="slide-nav-btn" id="prev-slide-btn" onclick="changeSlide(-1)" disabled>
                                 <i class="fa-solid fa-arrow-left"></i> Previous
@@ -237,7 +244,7 @@
         </section>
 
         <!-- Tab 2: Simulation Console -->
-        <section id="pane-simulation" class="content-pane">
+        <section id="pane-simulation" class="content-pane active">
             <div class="dashboard-grid">
                 
                 <!-- Interactive Parameter Control Panel -->
@@ -346,7 +353,9 @@
             </div>
         </section>
 
-    </main>
+    <a href="OP26_Analytics_Presentation.pptx" download class="floating-download-btn" id="download-btn" style="display: none;">
+        <i class="fa-solid fa-download"></i>
+    </a>
 
     <script src="main.js"></script>
 </body>

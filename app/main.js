@@ -1,6 +1,6 @@
 // Application State
 let currentSlide = 1;
-const totalSlides = 7;
+const totalSlides = 8;
 let simulationData = null;
 let currentDataset = 'urbanev';
 
@@ -17,11 +17,13 @@ function switchTab(tabName) {
     if (tabName === 'slides') {
         document.getElementById('tab-slides-btn').classList.add('active');
         document.getElementById('pane-slides').classList.add('active');
+        document.getElementById('download-btn').style.display = 'inline-flex';
         // Redraw slide chart if needed
         setTimeout(renderSlideEdaChart, 100);
     } else if (tabName === 'simulation') {
         document.getElementById('tab-sim-btn').classList.add('active');
         document.getElementById('pane-simulation').classList.add('active');
+        document.getElementById('download-btn').style.display = 'none';
         // Render simulation charts
         setTimeout(triggerSimulation, 100);
     }
@@ -50,8 +52,8 @@ function goToSlide(slideNum) {
     document.getElementById('prev-slide-btn').disabled = currentSlide === 1;
     document.getElementById('next-slide-btn').disabled = currentSlide === totalSlides;
     
-    // If it's the EDA slide (slide 3), render the chart
-    if (currentSlide === 3) {
+    // If it's the EDA slide (slide 4), render the chart
+    if (currentSlide === 4) {
         setTimeout(renderSlideEdaChart, 100);
     }
 }

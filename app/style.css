@@ -1,0 +1,638 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+    --bg-dark: #060b13;
+    --card-bg: rgba(13, 22, 38, 0.7);
+    --card-border: rgba(30, 58, 95, 0.4);
+    --text-primary: #f1f5f9;
+    --text-secondary: #94a3b8;
+    --primary-color: #10b981; /* Mint Green */
+    --primary-glow: rgba(16, 185, 129, 0.2);
+    --secondary-color: #3b82f6; /* Electric Blue */
+    --accent-color: #a855f7; /* Purple */
+    --danger-color: #ef4444;
+    --font-outfit: 'Outfit', sans-serif;
+    --font-inter: 'Inter', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-primary);
+    font-family: var(--font-inter);
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+    background-image: 
+        radial-gradient(circle at 10% 20%, rgba(16, 185, 129, 0.05) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(59, 130, 246, 0.05) 0%, transparent 40%);
+}
+
+/* Header Styling */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 3rem;
+    border-bottom: 1px solid var(--card-border);
+    background: rgba(6, 11, 19, 0.8);
+    backdrop-filter: blur(12px);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.logo-icon {
+    font-family: var(--font-outfit);
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 1.8rem;
+}
+
+.logo-text {
+    font-family: var(--font-outfit);
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    letter-spacing: 0.5px;
+}
+
+/* Nav Tabs */
+.nav-tabs {
+    display: flex;
+    gap: 0.5rem;
+    background: rgba(30, 41, 59, 0.5);
+    padding: 0.3rem;
+    border-radius: 30px;
+    border: 1px solid var(--card-border);
+}
+
+.tab-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    padding: 0.6rem 1.5rem;
+    font-family: var(--font-outfit);
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: 25px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.tab-btn:hover {
+    color: var(--text-primary);
+}
+
+.tab-btn.active {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: #ffffff;
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.25);
+}
+
+/* Main Content Wrapper */
+main {
+    max-width: 1400px;
+    margin: 2rem auto;
+    padding: 0 2rem;
+}
+
+.content-pane {
+    display: none;
+    animation: fadeIn 0.5s ease-out forwards;
+}
+
+.content-pane.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Slide Deck Styling */
+.slide-deck-container {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 2rem;
+    min-height: 600px;
+}
+
+/* Slide Navigation Menu */
+.slide-menu {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    backdrop-filter: blur(8px);
+}
+
+.slide-menu h3 {
+    font-family: var(--font-outfit);
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 0.8rem;
+    padding-left: 0.5rem;
+}
+
+.slide-menu-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    text-align: left;
+    padding: 0.8rem 1rem;
+    font-family: var(--font-inter);
+    font-size: 0.9rem;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.slide-menu-btn:hover {
+    background: rgba(30, 41, 59, 0.3);
+    color: var(--text-primary);
+}
+
+.slide-menu-btn.active {
+    background: rgba(16, 185, 129, 0.15);
+    color: var(--primary-color);
+    border-left: 3px solid var(--primary-color);
+    padding-left: 0.8rem;
+    font-weight: 500;
+}
+
+/* Slide Content Viewer */
+.slide-viewer {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 20px;
+    padding: 3rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(8px);
+}
+
+.slide-body {
+    flex-grow: 1;
+    display: none;
+    animation: fadeIn 0.4s ease-out forwards;
+}
+
+.slide-body.active {
+    display: block;
+}
+
+.slide-body h1 {
+    font-family: var(--font-outfit);
+    font-size: 2.8rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(135deg, #ffffff 40%, var(--text-secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.slide-body h2 {
+    font-family: var(--font-outfit);
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 1.2rem;
+    color: var(--primary-color);
+}
+
+.slide-body p {
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+.slide-bullets {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+
+.slide-bullet {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.8rem;
+    color: var(--text-primary);
+    font-size: 1.05rem;
+    line-height: 1.5;
+}
+
+.slide-bullet-icon {
+    color: var(--primary-color);
+    font-size: 1.2rem;
+    margin-top: 0.1rem;
+}
+
+/* Slide Columns */
+.slide-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-top: 1.5rem;
+}
+
+/* Slide Footer & Navigation */
+.slide-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--card-border);
+}
+
+.slide-counter {
+    color: var(--text-secondary);
+    font-family: var(--font-outfit);
+    font-size: 0.9rem;
+}
+
+.slide-nav-buttons {
+    display: flex;
+    gap: 1rem;
+}
+
+.slide-nav-btn {
+    background: rgba(30, 41, 59, 0.6);
+    color: var(--text-primary);
+    border: 1px solid var(--card-border);
+    padding: 0.6rem 1.2rem;
+    cursor: pointer;
+    border-radius: 8px;
+    font-family: var(--font-outfit);
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.slide-nav-btn:hover:not(:disabled) {
+    background: rgba(16, 185, 129, 0.1);
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.slide-nav-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+/* Dashboard Panel Layout */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 2rem;
+}
+
+/* Control Panel Card */
+.control-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    backdrop-filter: blur(8px);
+}
+
+.control-card h3 {
+    font-family: var(--font-outfit);
+    font-size: 1.2rem;
+    font-weight: 600;
+    border-bottom: 1px solid var(--card-border);
+    padding-bottom: 0.5rem;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.input-group label {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.input-group select, .input-group input {
+    background: rgba(15, 23, 42, 0.8);
+    border: 1px solid var(--card-border);
+    color: var(--text-primary);
+    padding: 0.7rem 1rem;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-family: var(--font-inter);
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+.input-group select:focus, .input-group input:focus {
+    border-color: var(--primary-color);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    border: none;
+    color: #ffffff;
+    padding: 0.8rem 1.5rem;
+    font-family: var(--font-outfit);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    text-align: center;
+    box-shadow: 0 4px 15px var(--primary-glow);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.35);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+}
+
+/* Metric Cards */
+.metrics-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.2rem;
+    margin-bottom: 2rem;
+}
+
+.metric-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    backdrop-filter: blur(8px);
+    position: relative;
+    overflow: hidden;
+}
+
+.metric-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--primary-color);
+}
+
+.metric-card.blue::after {
+    background: var(--secondary-color);
+}
+
+.metric-card.purple::after {
+    background: var(--accent-color);
+}
+
+.metric-card.orange::after {
+    background: #f59e0b;
+}
+
+.metric-label {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.metric-value {
+    font-family: var(--font-outfit);
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.metric-sub {
+    font-size: 0.75rem;
+    color: var(--primary-color);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+}
+
+.metric-sub.negative {
+    color: var(--danger-color);
+}
+
+/* Charts Card Grid */
+.charts-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+}
+
+.chart-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    padding: 1.5rem;
+    backdrop-filter: blur(8px);
+}
+
+.chart-card h4 {
+    font-family: var(--font-outfit);
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+.chart-wrapper {
+    position: relative;
+    height: 320px;
+    width: 100%;
+}
+
+/* Glassmorphism Table */
+.data-table-container {
+    margin-top: 2rem;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    padding: 1.5rem;
+    overflow-x: auto;
+}
+
+.data-table-container h4 {
+    font-family: var(--font-outfit);
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 0.9rem;
+}
+
+th, td {
+    padding: 0.8rem 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+th {
+    color: var(--text-secondary);
+    font-family: var(--font-outfit);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.5px;
+}
+
+td {
+    color: var(--text-primary);
+}
+
+tr:hover td {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+/* Responsive design */
+@media (max-width: 1024px) {
+    .slide-deck-container, .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .metrics-row {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+/* Print CSS Styles for Slide Presentation PDF Export */
+@media print {
+    body {
+        background: #ffffff !important;
+        color: #000000 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+    
+    /* Hide non-presentation UI */
+    header, .slide-menu, .slide-footer, .nav-tabs, #pane-simulation, .logo-container {
+        display: none !important;
+    }
+    
+    #pane-slides {
+        display: block !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    .slide-deck-container {
+        display: block !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    .slide-viewer {
+        background: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        backdrop-filter: none !important;
+    }
+    
+    /* Make all slides visible, each on its own landscape page */
+    .slide-body {
+        display: block !important;
+        page-break-after: always !important;
+        break-after: page !important;
+        height: 100vh !important;
+        width: 100vw !important;
+        padding: 4rem 3rem !important;
+        box-sizing: border-box !important;
+        position: relative !important;
+        color: #0f172a !important;
+    }
+    
+    .slide-body h1 {
+        font-size: 2.5rem !important;
+        margin-bottom: 1rem !important;
+        background: none !important;
+        -webkit-text-fill-color: initial !important;
+        color: #0f172a !important;
+    }
+    
+    .slide-body h2 {
+        font-size: 1.6rem !important;
+        color: #10b981 !important; /* Keep primary accent */
+        margin-bottom: 1rem !important;
+    }
+    
+    .slide-body p {
+        color: #475569 !important;
+        font-size: 1.1rem !important;
+        line-height: 1.5 !important;
+    }
+    
+    .slide-bullet {
+        color: #1e293b !important;
+        font-size: 1.1rem !important;
+    }
+    
+    .slide-bullet-icon {
+        color: #10b981 !important;
+    }
+    
+    .slide-grid-2 {
+        gap: 1.5rem !important;
+    }
+    
+    .slide-grid-2 h3 {
+        color: #3b82f6 !important;
+    }
+    
+    .chart-wrapper {
+        display: none !important; /* Hide dynamic interactive charts in raw printing */
+    }
+}

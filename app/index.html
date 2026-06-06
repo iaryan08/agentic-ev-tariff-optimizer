@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EV Tariff Optimizer - Agentic AI Dynamic Pricing</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js for interactive analytics -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header>
+        <div class="logo-container">
+            <span class="logo-icon"><i class="fa-solid fa-bolt"></i> OP'26</span>
+            <span class="logo-text">Agentic Tariff Optimizer</span>
+        </div>
+        <div class="nav-tabs">
+            <button class="tab-btn active" id="tab-slides-btn" onclick="switchTab('slides')">
+                <i class="fa-solid fa-presentation-screen"></i> Presentation Deck
+            </button>
+            <button class="tab-btn" id="tab-sim-btn" onclick="switchTab('simulation')">
+                <i class="fa-solid fa-chart-line"></i> Simulation Console
+            </button>
+            <a href="OP26_Analytics_Presentation.pptx" download class="tab-btn" style="text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; justify-content: center;">
+                <i class="fa-solid fa-download"></i> Download PPTX
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main>
+        
+        <!-- Tab 1: Presentation Slides -->
+        <section id="pane-slides" class="content-pane active">
+            <div class="slide-deck-container">
+                
+                <!-- Sidebar Navigation Menu for Slides -->
+                <nav class="slide-menu">
+                    <h3>Slides</h3>
+                    <button class="slide-menu-btn active" onclick="goToSlide(1)">
+                        <i class="fa-solid fa-house"></i> 1. Cover Slide
+                    </button>
+                    <button class="slide-menu-btn" onclick="goToSlide(2)">
+                        <i class="fa-solid fa-gears"></i> 2. Preprocessing
+                    </button>
+                    <button class="slide-menu-btn" onclick="goToSlide(3)">
+                        <i class="fa-solid fa-chart-simple"></i> 3. Exploratory Data
+                    </button>
+                    <button class="slide-menu-btn" onclick="goToSlide(4)">
+                        <i class="fa-solid fa-brain"></i> 4. Demand Forecasting
+                    </button>
+                    <button class="slide-menu-btn" onclick="goToSlide(5)">
+                        <i class="fa-solid fa-tag"></i> 5. Dynamic Pricing
+                    </button>
+                    <button class="slide-menu-btn" onclick="goToSlide(6)">
+                        <i class="fa-solid fa-arrows-spin"></i> 6. Monitoring Agent
+                    </button>
+                    <button class="slide-menu-btn" onclick="goToSlide(7)">
+                        <i class="fa-solid fa-briefcase"></i> 7. Business Impact
+                    </button>
+                </nav>
+
+                <!-- Slide Content Viewer -->
+                <div class="slide-viewer" id="slide-viewer">
+                    
+                    <!-- Slide 1: Cover -->
+                    <div class="slide-body active" id="slide-1">
+                        <h1>Agentic AI-Based Dynamic Tariff Optimization</h1>
+                        <h2>For EV Charging Networks Using Large-Scale Charging Data</h2>
+                        <p>EV Dynamic Tariff Optimization Submission by Society of Business.</p>
+                        <p style="margin-top: 1rem; font-weight: 600; color: var(--primary-color);">Submitted by: Aryan Mehra (Enrollment: 23115025)</p>
+                        
+                        <div class="slide-bullets" style="margin-top: 3rem;">
+                            <div class="slide-bullet">
+                                <i class="fa-solid fa-circle-check slide-bullet-icon"></i>
+                                <div><strong>Problem Statement:</strong> Flat-rate tariffs cause peak congestion and underutilization in off-peak windows.</div>
+                            </div>
+                            <div class="slide-bullet">
+                                <i class="fa-solid fa-circle-check slide-bullet-icon"></i>
+                                <div><strong>Objective:</strong> Build a self-improving pricing engine that autonomously predicts demand, optimizes tariffs, and learns from operational outcomes.</div>
+                            </div>
+                            <div class="slide-bullet">
+                                <i class="fa-solid fa-circle-check slide-bullet-icon"></i>
+                                <div><strong>Datasets:</strong> Caltech ACN-Data (USA) and Shenzhen UrbanEV Dataset (ST-EVCDP).</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 2: Data Preprocessing -->
+                    <div class="slide-body" id="slide-2">
+                        <h1>Data Preprocessing & Feature Engineering</h1>
+                        <h2>Structuring and Aligning Large-Scale Datasets</h2>
+                        <p>We aligned the session-level ACN-Data and the grid-level UrbanEV time-series datasets to a unified analytical base.</p>
+                        
+                        <div class="slide-grid-2">
+                            <div>
+                                <h3 style="color: var(--secondary-color); margin-bottom: 0.5rem;"><i class="fa-solid fa-broom"></i> Data Cleaning Decisions</h3>
+                                <div class="slide-bullet"><i class="fa-solid fa-arrow-right slide-bullet-icon"></i> ACN: Forward-filled session attributes into nested userInputs updates.</div>
+                                <div class="slide-bullet"><i class="fa-solid fa-arrow-right slide-bullet-icon"></i> ACN: Aggregated to hourly active occupancies and charging loads.</div>
+                                <div class="slide-bullet"><i class="fa-solid fa-arrow-right slide-bullet-icon"></i> UrbanEV: Reshaped matrices into long format (2.13M rows) and aggregated to hourly.</div>
+                            </div>
+                            <div>
+                                <h3 style="color: var(--secondary-color); margin-bottom: 0.5rem;"><i class="fa-solid fa-wand-magic-sparkles"></i> Feature Engineering</h3>
+                                <div class="slide-bullet"><i class="fa-solid fa-arrow-right slide-bullet-icon"></i> Charger Utilization: Active charging time / total available capacity.</div>
+                                <div class="slide-bullet"><i class="fa-solid fa-arrow-right slide-bullet-icon"></i> Waiting Time Proxy: Queue length computed as occupancy exceeding grid capacity.</div>
+                                <div class="slide-bullet"><i class="fa-solid fa-arrow-right slide-bullet-icon"></i> Time lags (1-hour, 2-hours, 24-hours) and rolling means for forecasting.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 3: Exploratory Data Analysis -->
+                    <div class="slide-body" id="slide-3">
+                        <h1>Exploratory Data Analysis (EDA)</h1>
+                        <h2>Temporal Charging Behavior & Price Sensitivity</h2>
+                        <p>EDA shows highly volatile charging demand that peaks mid-day (ACN workplace) and early evening (UrbanEV public grids).</p>
+                        
+                        <div class="slide-grid-2">
+                            <div>
+                                <h3 style="color: var(--secondary-color); margin-bottom: 0.5rem;"><i class="fa-solid fa-clock"></i> Key EDA Findings</h3>
+                                <div class="slide-bullet"><i class="fa-solid fa-arrow-right slide-bullet-icon"></i> Workplace ACN charging shows high weekday peaks and almost zero weekend demand.</div>
+                                <div class="slide-bullet"><i class="fa-solid fa-arrow-right slide-bullet-icon"></i> Public Shenzhen grids exhibit clear morning (8-10 AM) and evening (6-9 PM) spikes.</div>
+                                <div class="slide-bullet"><i class="fa-solid fa-arrow-right slide-bullet-icon"></i> Fixed baseline tariff (₹15/kWh equivalent) fails to penalize peak congestion, creating queues.</div>
+                            </div>
+                            <div>
+                                <div class="chart-wrapper" style="height: 200px;">
+                                    <!-- ACN/UrbanEV average daily occupancy chart in slide -->
+                                    <canvas id="slide-eda-chart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 4: Demand Forecasting -->
+                    <div class="slide-body" id="slide-4">
+                        <h1>Demand Prediction Agent</h1>
+                        <h2>Machine Learning-Based Time-Series Forecasting</h2>
+                        <p>We train LightGBM regression models to forecast occupancy and volume (expected load) using temporal features and lagged demand.</p>
+                        
+                        <div class="slide-grid-2">
+                            <div>
+                                <h3 style="color: var(--secondary-color); margin-bottom: 0.5rem;"><i class="fa-solid fa-square-poll-vertical"></i> Regression Performance</h3>
+                                <div class="slide-bullet"><i class="fa-solid fa-arrow-right slide-bullet-icon"></i> <strong>UrbanEV Occupancy R²:</strong> <span style="color: var(--primary-color); font-weight: bold;">98.68%</span></div>
+                                <div class="slide-bullet"><i class="fa-solid fa-arrow-right slide-bullet-icon"></i> <strong>UrbanEV Volume R²:</strong> <span style="color: var(--primary-color); font-weight: bold;">91.07%</span></div>
+                                <div class="slide-bullet"><i class="fa-solid fa-arrow-right slide-bullet-icon"></i> <strong>ACN Occupancy R²:</strong> <span style="color: var(--primary-color); font-weight: bold;">95.24%</span></div>
+                                <div class="slide-bullet"><i class="fa-solid fa-arrow-right slide-bullet-icon"></i> <strong>ACN Volume R²:</strong> <span style="color: var(--primary-color); font-weight: bold;">80.57%</span></div>
+                            </div>
+                            <div>
+                                <h3 style="color: var(--secondary-color); margin-bottom: 0.5rem;"><i class="fa-solid fa-triangle-exclamation"></i> Congestion Probability</h3>
+                                <div class="slide-bullet"><i class="fa-solid fa-arrow-right slide-bullet-icon"></i> Outputs estimated utilization and expected charging load.</div>
+                                <div class="slide-bullet"><i class="fa-solid fa-arrow-right slide-bullet-icon"></i> Maps regression values to sigmoid curves to estimate dynamic congestion probabilities.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 5: Dynamic Pricing Logic -->
+                    <div class="slide-body" id="slide-5">
+                        <h1>Tariff Pricing Agent</h1>
+                        <h2>Elasticity-Aware Surge & Discount Logic</h2>
+                        <p>Translates forecasting agent predictions into dynamic tariffs to shift customer charging schedules.</p>
+                        
+                        <div class="slide-grid-2">
+                            <div>
+                                <h3 style="color: var(--secondary-color); margin-bottom: 0.5rem;"><i class="fa-solid fa-chart-line-up"></i> Surge Pricing</h3>
+                                <div class="slide-bullet"><i class="fa-solid fa-arrow-right slide-bullet-icon"></i> Triggered when predicted utilization exceeds 80%.</div>
+                                <div class="slide-bullet"><i class="fa-solid fa-arrow-right slide-bullet-icon"></i> Price surges from baseline ₹15/kWh up to ₹25/kWh.</div>
+                                <div class="slide-bullet"><i class="fa-solid fa-arrow-right slide-bullet-icon"></i> Incentivizes users to defer non-urgent charging.</div>
+                            </div>
+                            <div>
+                                <h3 style="color: var(--secondary-color); margin-bottom: 0.5rem;"><i class="fa-solid fa-chart-line-down"></i> Discount Pricing</h3>
+                                <div class="slide-bullet"><i class="fa-solid fa-arrow-right slide-bullet-icon"></i> Triggered when predicted utilization drops below 30%.</div>
+                                <div class="slide-bullet"><i class="fa-solid fa-arrow-right slide-bullet-icon"></i> Price discounts from ₹15/kWh down to ₹10/kWh.</div>
+                                <div class="slide-bullet"><i class="fa-solid fa-arrow-right slide-bullet-icon"></i> Encourages charging during off-peak windows.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 6: Monitoring Agent -->
+                    <div class="slide-body" id="slide-6">
+                        <h1>Monitoring & Learning Agent</h1>
+                        <h2>Closed-Loop Adaptive Feedback Performance</h2>
+                        <p>Evaluates pricing decisions against operational outcomes and dynamically adjusts the elasticity coefficient.</p>
+                        
+                        <div class="slide-grid-2">
+                            <div>
+                                <h3 style="color: var(--secondary-color); margin-bottom: 0.5rem;"><i class="fa-solid fa-ranking-stars"></i> Simulation Outcomes (UrbanEV)</h3>
+                                <div class="slide-bullet"><i class="fa-solid fa-arrow-right slide-bullet-icon"></i> <strong>Off-Peak Volume Uplift:</strong> +2.09%</div>
+                                <div class="slide-bullet"><i class="fa-solid fa-arrow-right slide-bullet-icon"></i> <strong>Observed Elasticity:</strong> 0.229</div>
+                                <div class="slide-bullet"><i class="fa-solid fa-arrow-right slide-bullet-icon"></i> <strong>Avg Dynamic Price:</strong> ₹14.55/kWh (balanced)</div>
+                            </div>
+                            <div>
+                                <h3 style="color: var(--secondary-color); margin-bottom: 0.5rem;"><i class="fa-solid fa-graduation-cap"></i> Adaptive Feedback Tuning</h3>
+                                <div class="slide-bullet"><i class="fa-solid fa-arrow-right slide-bullet-icon"></i> Agent detects revenue metrics and adjusts dynamic price bounds.</div>
+                                <div class="slide-bullet"><i class="fa-solid fa-arrow-right slide-bullet-icon"></i> Successfully prevents peak demand drops (revenue protection) by reducing elasticity factor when dynamic revenue dips.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 7: Business Implications -->
+                    <div class="slide-body" id="slide-7">
+                        <h1>Business & Grid Implications</h1>
+                        <h2>Operational and Policy Recommendation Deck</h2>
+                        
+                        <div class="slide-bullets" style="margin-top: 1.5rem;">
+                            <div class="slide-bullet">
+                                <i class="fa-solid fa-shield-halved slide-bullet-icon"></i>
+                                <div><strong>Grid Reliability:</strong> Shaving peak charging load by up to 15% directly decreases localized distribution transformer overload risks.</div>
+                            </div>
+                            <div class="slide-bullet">
+                                <i class="fa-solid fa-circle-dollar-to-slot slide-bullet-icon"></i>
+                                <div><strong>Station Profitability:</strong> Shifting load from low-use slots to off-peak periods increases overall asset utilization rate, raising charger ROI.</div>
+                            </div>
+                            <div class="slide-bullet">
+                                <i class="fa-solid fa-leaf slide-bullet-icon"></i>
+                                <div><strong>Sustainable Policy:</strong> Dynamic discounts can be mapped directly to solar-generation hours, maximizing clean green energy charging.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide Control Buttons -->
+                    <div class="slide-footer">
+                        <span class="slide-counter" id="slide-counter">Slide 1 of 7</span>
+                        <div class="slide-nav-buttons">
+                            <button class="slide-nav-btn" id="prev-slide-btn" onclick="changeSlide(-1)" disabled>
+                                <i class="fa-solid fa-arrow-left"></i> Previous
+                            </button>
+                            <button class="slide-nav-btn" id="next-slide-btn" onclick="changeSlide(1)">
+                                Next <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Tab 2: Simulation Console -->
+        <section id="pane-simulation" class="content-pane">
+            <div class="dashboard-grid">
+                
+                <!-- Interactive Parameter Control Panel -->
+                <div class="control-card">
+                    <h3><i class="fa-solid fa-sliders"></i> Control Parameters</h3>
+                    
+                    <div class="input-group">
+                        <label for="sim-dataset">Select Dataset</label>
+                        <select id="sim-dataset" onchange="loadDatasetData()">
+                            <option value="urbanev">UrbanEV Shenzhen (ST-EVCDP)</option>
+                            <option value="acn">Caltech ACN-Data (USA)</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="sim-base-price">Baseline Price (₹/kWh)</label>
+                        <input type="number" id="sim-base-price" value="15" min="5" max="30">
+                    </div>
+
+                    <div class="input-group">
+                        <label for="sim-max-price">Max Surge Price (₹/kWh)</label>
+                        <input type="number" id="sim-max-price" value="25" min="15" max="50">
+                    </div>
+
+                    <div class="input-group">
+                        <label for="sim-min-price">Min Discount Price (₹/kWh)</label>
+                        <input type="number" id="sim-min-price" value="10" min="2" max="15">
+                    </div>
+
+                    <div class="input-group">
+                        <label for="sim-elasticity">Price Elasticity Coefficient (ε)</label>
+                        <input type="number" id="sim-elasticity" value="0.25" step="0.05" min="0.05" max="1.0">
+                    </div>
+
+                    <button class="btn-primary" onclick="triggerSimulation()">
+                        <i class="fa-solid fa-play"></i> Run Live Simulation
+                    </button>
+                </div>
+
+                <!-- Live Results Panel -->
+                <div class="results-panel">
+                    
+                    <!-- Metrics Scoreboard -->
+                    <div class="metrics-row">
+                        <div class="metric-card">
+                            <span class="metric-label">Revenue Gain</span>
+                            <span class="metric-value" id="metric-rev-gain">-0.00%</span>
+                            <span class="metric-sub" id="metric-rev-sub">vs ₹15 baseline</span>
+                        </div>
+                        <div class="metric-card blue">
+                            <span class="metric-label">Peak Queue Reduction</span>
+                            <span class="metric-value" id="metric-queue-red">0.00%</span>
+                            <span class="metric-sub" id="metric-queue-sub">waiting time decrease</span>
+                        </div>
+                        <div class="metric-card purple">
+                            <span class="metric-label">Off-Peak Uplift</span>
+                            <span class="metric-value" id="metric-offpeak-uplift">0.00%</span>
+                            <span class="metric-sub" id="metric-offpeak-sub">low-demand utilization</span>
+                        </div>
+                        <div class="metric-card orange">
+                            <span class="metric-label">Pricing Efficiency</span>
+                            <span class="metric-value" id="metric-efficiency">₹15.00</span>
+                            <span class="metric-sub" id="metric-efficiency-sub">revenue per kWh</span>
+                        </div>
+                    </div>
+
+                    <!-- Live Chart Visualization -->
+                    <div class="charts-container">
+                        <div class="chart-card">
+                            <h4><i class="fa-solid fa-chart-area"></i> Demand Profile: Before vs. After Dynamic Pricing</h4>
+                            <div class="chart-wrapper">
+                                <canvas id="sim-demand-chart"></canvas>
+                            </div>
+                        </div>
+                        <div class="chart-card">
+                            <h4><i class="fa-solid fa-money-bill-trend-up"></i> Dynamic Tariff scheduling (₹/kWh)</h4>
+                            <div class="chart-wrapper">
+                                <canvas id="sim-tariff-chart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Details Table -->
+                    <div class="data-table-container">
+                        <h4><i class="fa-solid fa-table-list"></i> Episode Learning Feedback Logs</h4>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Episode Day</th>
+                                    <th>Dynamic Elasticity (ε)</th>
+                                    <th>Revenue Gain (%)</th>
+                                    <th>Queue Reduction (%)</th>
+                                    <th>Off-Peak Uplift (%)</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="sim-feedback-table-body">
+                                <tr>
+                                    <td colspan="6" style="text-align: center; color: var(--text-secondary);">No simulation run. Click 'Run Live Simulation' to start.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="main.js"></script>
+</body>
+</html>
